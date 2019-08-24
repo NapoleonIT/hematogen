@@ -1,0 +1,3 @@
+
+class BasePythonCodegen(object):
+    pass
