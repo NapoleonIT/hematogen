@@ -1,0 +1,18 @@
+from api_client import ApiClient
+
+
+class {{ api.name }}:
+
+    def __init__(self, api_client=None, **kwargs):
+
+        if api_client is None:
+            api_client = ApiClient(**kwargs)
+
+        self.api_client = api_client
+
+    {% for func in funcs %}
+    {% macro function() %}
+        {% include "function.html" %}
+    {% endmacro %}
+    {{ function()|indent(width=4, first=False) }}
+    {% endfor %}

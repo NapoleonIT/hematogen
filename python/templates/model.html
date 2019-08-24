@@ -1,0 +1,33 @@
+class {{ model_name }}(object):
+
+    def __init__(self, {% for attr in attrs %}{{ attr.name }}: {{ attr.type }}{{", " if not loop.last }}{% endfor %}):
+
+    {% for attr in attrs %}
+        self._{{ attr.name }}: {{ attr.type }} = {{ attr.name }}
+    {% endfor %}
+
+{% for attr in attrs %}
+    {% if attr.required %}
+        if self._{{ attr.name }} is None:
+            raise ValueError("Field `{{ attr.name }}` cannot be None")
+
+    {% endif %}
+{% endfor %}
+{% for attr in attrs %}
+    @property
+    def {{ attr.name }}(self):
+        return self._{{ attr.name }}
+
+{% endfor %}
+{% for attr in attrs %}
+    @{{ attr.name }}.setter
+    def {{ attr.name }}(self, {{ attr.name }}: {{ attr.type }}):
+        {% if attr.required %}
+
+        if self._{{ attr.name }} is None:
+            raise ValueError("Field `{{ attr.name }}` cannot be None")
+        {% endif %}
+
+        self._{{ attr.name }} = {{ attr.name }}
+
+{% endfor %}
