@@ -1,3 +1,8 @@
+{% for model in imports %}
+from ..{{ client_models_dir }} import {{ model }}
+{% endfor %}
+
+
 class {{ model_name }}(object):
 
     def __init__(self, {% for attr in attrs %}{{ attr.name }}: {{ attr.type }}{{", " if not loop.last }}{% endfor %}):

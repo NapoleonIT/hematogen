@@ -37,6 +37,7 @@ class SpecConstructor(object):
             component_properties, required = self.get_schema_properties(component)
             setattr(component, 'gathered_props', component_properties)
             setattr(component, 'gathered_required', required)
+            # setattr(component, 'name', name)
 
         return components
 
@@ -44,9 +45,9 @@ class SpecConstructor(object):
         f = open(spec_yaml, 'r')
         swagger_yaml = f.read()
         json_ = yaml.safe_load(swagger_yaml)
-        spec = create_spec(json_)
 
-        validate_v3_spec(json_)
+        spec = create_spec(json_)
+        # validate_v3_spec(json_)
         return spec
 
 
